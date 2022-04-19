@@ -6,6 +6,11 @@ from yeelight import Bulb  # Libreria para foco MI
 from w1thermsensor import W1ThermSensor, Unit # Para el sensor de temperatura
 import numpy as np #Una chulada de operaciones
 import telegram #Poder enviar mensajes a telegram 
+import datetime
+
+def convert(n):
+    return str(datetime.timedelta(seconds=n))
+
 
 def send_data_idb(totlit, time_s, temper): #La función que envía información a influx
     bucket = "shower" # Colocar el nombre del bucket de nuetra base de datos en influx
@@ -134,7 +139,8 @@ def flujo():
 
         if(check - TotLit == 0): #Si la cantidad de agua durante el ciclo pasado y el actual es igual, significa que ya se apagó al regadera
             final = time.time()#Obtenemos la hora en la que acaba
-            time_shower = round((final - inicio)/60, 2) #Redondeamos el valor a dos decimales y hacemos la resta para sacar el tiempo de baño en minutos
+            time_s = int((final - inicio))
+            time_shower = convert(time_s) #Redondeamos el valor a dos decimales y hacemos la resta para sacar el tiempo de baño en minutos
             GPIO.cleanup() # Cerramos y limpiamos los pines que usamos de la raspberry
             Temp = round(np.mean(temperaturas),2)#Obtenemos el promedio de temepratura, gracias numpy <3
             send_data_idb(TotLit, time_shower, Temp)  # escribimos los valores en nuestro bucket de influx
