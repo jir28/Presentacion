@@ -8,10 +8,6 @@ import numpy as np #Una chulada de operaciones
 import telegram #Poder enviar mensajes a telegram 
 
 def send_data_idb(totlit, time_s, temper): #La función que envía información a influx
-    #Valores que vamos a escribir
-    LITERS = int(totlit)
-    TIEMPO =int(time_s)
-    TEMPER = int(temper)
     bucket = "shower" # Colocar el nombre del bucket de nuetra base de datos en influx
     org = "jirs28"# Nombre de la organizacion registrada en influx db
     token = "GFeVTlT1gAXP-GhqTwzPhfDIe-pQpHA5sFVXaGtwGH4fD-r0hYpzBGndVAU0dJgJMpNrakiQg0naDo9n68qHVA==" # Obtener el token dando acceso de lectura y escritura al bucket
@@ -24,9 +20,9 @@ def send_data_idb(totlit, time_s, temper): #La función que envía información 
     )
     # Envio de datos a influx
     write_api = client.write_api(write_options=SYNCHRONOUS)
-    p = influxdb_client.Point("Litros").field("Litros", LITERS)
-    ptime = influxdb_client.Point("Tiempo").field("Segundos", TIEMPO)
-    ptemp = influxdb_client.Point("TemperaturaProm").field("Celsius", TEMPER)
+    p = influxdb_client.Point("Litros").field("Litros", totlit)
+    ptime = influxdb_client.Point("Tiempo").field("Segundos", time_s)
+    ptemp = influxdb_client.Point("TemperaturaProm").field("Celsius", temper)
     write_api.write(bucket=bucket, org=org, record=p)
     write_api.write(bucket=bucket, org=org, record=ptime)
     write_api.write(bucket=bucket, org=org, record=ptemp)
