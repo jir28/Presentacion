@@ -147,5 +147,3 @@ def flujo():
         time.sleep(0.99)#para no estar capurando miles de valores por segundo
         check = TotLit # Igualamos una variable auxiliar a los litro al final del ciclo y volvemos a empezar
     return 3
-
-    
