@@ -12,9 +12,9 @@ def send_data_idb(totlit, time_s, temper): #La función que envía información 
     LITERS = int(totlit)
     TIEMPO =int(time_s)
     TEMPER = int(temper)
-    bucket = "ShowerS" # Colocar el nombre del bucket de nuetra base de datos en influx
+    bucket = "shower" # Colocar el nombre del bucket de nuetra base de datos en influx
     org = "jirs28"# Nombre de la organizacion registrada en influx db
-    token = "CogeqAhxfHt5o-0rkeCtKiMxyhXMjJaqugbHUN_LisF7cvH9LaIyDvFAZfU5CEDVrFkiYeh_69_TQ-NKUsKCeg==" # Obtener el token dando acceso de lectura y escritura al bucket
+    token = "GFeVTlT1gAXP-GhqTwzPhfDIe-pQpHA5sFVXaGtwGH4fD-r0hYpzBGndVAU0dJgJMpNrakiQg0naDo9n68qHVA==" # Obtener el token dando acceso de lectura y escritura al bucket
     url = "https://us-east-1-1.aws.cloud2.influxdata.com"# URL del servidor de influx, por lo general siempre sera el mismo en caso de elegir region U.S
 
     client = influxdb_client.InfluxDBClient(
