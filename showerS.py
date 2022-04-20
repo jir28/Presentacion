@@ -13,9 +13,9 @@ def convert(n):
 
 
 def send_data_idb(totlit, time_s, temper): #La función que envía información a influx
-    bucket = "shower" # Colocar el nombre del bucket de nuetra base de datos en influx
+    bucket = "ShowerS" # Colocar el nombre del bucket de nuetra base de datos en influx
     org = "jirs28"# Nombre de la organizacion registrada en influx db
-    token = "GFeVTlT1gAXP-GhqTwzPhfDIe-pQpHA5sFVXaGtwGH4fD-r0hYpzBGndVAU0dJgJMpNrakiQg0naDo9n68qHVA==" # Obtener el token dando acceso de lectura y escritura al bucket
+    token = "R3-V0KVD9uFYF5FhTnPiyoEaGh6ZYOF5mHkc-bZclf-TsUeDIWWaDZWKxhCmBE8BpdQqDcLxQW4d1PEvzRRH8A==" # Obtener el token dando acceso de lectura y escritura al bucket
     url = "https://us-east-1-1.aws.cloud2.influxdata.com"# URL del servidor de influx, por lo general siempre sera el mismo en caso de elegir region U.S
 
     client = influxdb_client.InfluxDBClient(
@@ -143,7 +143,7 @@ def flujo():
             time_shower = convert(time_s) #Redondeamos el valor a dos decimales y hacemos la resta para sacar el tiempo de baño en minutos
             GPIO.cleanup() # Cerramos y limpiamos los pines que usamos de la raspberry
             Temp = round(np.mean(temperaturas),2)#Obtenemos el promedio de temepratura, gracias numpy <3
-            send_data_idb(TotLit, time_shower, Temp)  # escribimos los valores en nuestro bucket de influx
+            send_data_idb(TotLit, time_s, Temp)  # escribimos los valores en nuestro bucket de influx
             send_alerts(TotLit, time_shower, Temp) #Enviamos a telegram la alerta con el tiempo total de litros, tiempo que duro el baño y la temperatura promedio
             return 5 #Salimos de este programa
         time.sleep(0.99)#para no estar capurando miles de valores por segundo
